@@ -1,63 +1,48 @@
-// GIVEN I need a new, secure password
-// WHEN I click the button to generate a password
-// THEN I am presented with a series of prompts for password criteria
-// WHEN prompted for password criteria
-// THEN I select which criteria to include in the password
-// WHEN prompted for the length of the password
-// THEN I choose a length of at least 8 characters and no more than 128 characters
-// WHEN asked for character types to include in the password
-// THEN I confirm whether or not to include lowercase, uppercase, numeric, and/or special characters
-// WHEN I answer each prompt
-// THEN my input should be validated and at least one character type should be selected
-// WHEN all prompts are answered
-// THEN a password is generated that matches the selected criteria
-// WHEN the password is generated
-// THEN the password is either displayed in an alert or written to the page
+// Function to prompt the user for the password length
+function getPasswordLength() {
+    let pwLength = parseInt(window.prompt('Choose the length of your desired password. It must be between 8 and 128 characters'));
+    
+    while (pwLength<8 || pwLength>128 || pwLength % 1 !== 0 || isNaN(pwLength)) {
+        pwLength = parseInt(window.prompt('FOLLOW THE DAMN INSTRUCTIONS and choose a password length between 8 and 128 characters'));
+    }
+    console.log(pwLength + " has been recorded as a valid length.");
+    return pwLength;
+}
 
+// Function to prompt the user for password criteria
+function getPasswordCriteria() {
+    let pwLowercase = window.confirm('Would you like your password to include lowercase letters?');
 
-//Prompt user for password requirements
-var promptLength = window.prompt('Choose a password length between 8 and 128 characters');
-var charResponses = []; //this will store the user's responses
+    console.log("Include lowercase letters: " + pwLowercase);
+    return pwLowercase
+}
+  
+// lowercase, uppercase, numeric, and/or special characters
 
-let upperResponse = confirm("Would you like to use uppercase letters?");
-let lowerResponse = confirm("Would you like to use lowercase letters?");
-let numResponse = confirm("Would you like to use numbers?");
-let specialResponse = confirm("Would you like to use special characters?");
+getPasswordLength()
+getPasswordCriteria()
 
-charResponses = [upperResponse, lowerResponse, numResponse, specialResponse]
+// Function to validate the user's input
+function validateInput(criteria, length) {
+    // TODO: Add code to validate the user's input
+    // TODO: Return true if the input is valid, otherwise false
+}
 
-console.log(promptLength);
-console.log(charResponses)
-
-
-
-//Create the pool of characters from which the password will be generated
-
-//Generate the random password
-
-  //Selection: Write a function to select a random character from the character pool (use Math.random()?)
-  //Repeat Selection: Repeat this process until the length of the password required is reached. (use a loop for this?)
-  //Concatenation: Select each random character & add it to the password string
-  //Display the password (use the DOM to display the password?)
-
-
-
-
-
-
-
-//   // Assignment Code
-// var generateBtn = document.querySelector("#generate");
-
-// // Write password to the #password input
-// function writePassword() {
-//   var password = generatePassword();
-//   var passwordText = document.querySelector("#password");
-
-//   passwordText.value = password;
-
+// // Function to generate the password
+// function generatePassword() {
+//     // TODO: Add code to generate the password based on the selected criteria
+//     // TODO: Return the generated password
 // }
 
-// // Add event listener to generate button
-// generateBtn.addEventListener("click", writePassword);
-
+// // Event listener for the generate button
+// // document.getElementById("generate-button").addEventListener("click", function() {
+//     var criteria = getPasswordCriteria();
+//     var length = getPasswordLength();
+  
+// if (validateInput(criteria, length)) {
+//     var password = generatePassword(criteria, length);
+//     // TODO: Display the password in an alert or write it to the page
+// } else {
+//     // TODO: Display an error message or handle invalid input
+// }
+// });
