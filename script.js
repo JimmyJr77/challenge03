@@ -1,87 +1,69 @@
-// Function to prompt the user for the password length
+// Function to prompt the user for the password length. Q: Why is parseInt between 2 and 36?
 function getPasswordLength() {
     let pwLength = parseInt(window.prompt('Choose the length of your desired password. It must be between 8 and 128 characters'));
-    
-    while (pwLength<8 || pwLength>128 || pwLength % 1 !== 0 || isNaN(pwLength)) {
+  
+    while (pwLength < 8 || pwLength > 128 || pwLength % 1 !== 0 || isNaN(pwLength)) {
         pwLength = parseInt(window.prompt('FOLLOW THE DAMN INSTRUCTIONS and choose a password length between 8 and 128 characters'));
     }
-    console.log(pwLength + " has been recorded as a valid length.");
+  
+    console.log(pwLength + ' has been recorded as a valid length.');
     return pwLength;
 }
-
-// Function to prompt the user for password criteria lowercase, uppercase, numeric, and/or special characters)
+  
+// Function to prompt the user for password criteria (lowercase, uppercase, numeric, and/or special characters)
 function getPasswordCriteria() {
     let pwLowercase = window.confirm('Would you like your password to include lowercase letters?');
+        console.log('Include lowercase letters: ' + pwLowercase);
     let pwUppercase = window.confirm('Would you like your password to include uppercase letters?');
+        console.log('Include uppercase letters: ' + pwUppercase);
     let pwNumeric = window.confirm('Would you like your password to include numbers?');
-    let pwSpecial = window.confirm('Would you like your password to include special characters? (Valid special characters include: !@#$%^&*())');
+        console.log('Include numbers: ' + pwNumeric);
+    let pwSpecial = window.confirm('Would you like your password to include special characters? (Valid special characters include: !@#$%^&*()');
+        console.log('Include special characters: ' + pwSpecial);
 
-    console.log("Include lowercase letters: " + pwLowercase);
-    console.log("Include uppercase letters: " + pwUppercase);
-    console.log("Include numbers: " + pwNumeric);
-    console.log("Include special characters: " + pwSpecial);
-    
     return {
-        pwLowercase,
-        pwUppercase,
-        pwNumeric,
-        pwSpecial
+      pwLowercase,
+      pwUppercase,
+      pwNumeric,
+      pwSpecial,
     };
-}
+  }
 
-getPasswordLength()
-getPasswordCriteria()
-
-// Function to validate the user's input
-function validateInput(criteria, length) {
-    // TODO: Add code to validate the user's input
-    // TODO: Return true if the input is valid, otherwise false
-}
-
-// Function to generate the password
+// Function to generate the password. Qs: How does the system know. Qs: How does the system connect (criteria, length) to given criteria requirements?
 function generatePassword(criteria, length) {
     let characters = '';
-
+  
     if (criteria.pwLowercase) {
-        characters += 'abcdefghijklmnopqrstuvwxyz'
+      characters += 'abcdefghijklmnopqrstuvwxyz';
     }
-
+  
     if (criteria.pwUppercase) {
-        characters += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+      characters += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     }
-
+  
     if (criteria.pwNumeric) {
-        characters += '0123456789'
+      characters += '0123456789';
     }
-
+  
     if (criteria.pwSpecial) {
-        characters = '!@#$%^&*()'
+      characters += '!@#$%^&*()';
     }
-
-    length == getPasswordLength()
-
-    // TODO: Return the generated password
-    let password = ''
-    i=0
-    for (let i=0; i<length; i++) {
-        password += characters.charAt(math.floor(math.random * characters.length));
+  
+    let password = '';
+    for (let i = 0; i < length; i++) {
+      password += characters.charAt(Math.floor(Math.random() * characters.length));
     }
-
+  
     console.log(password);
     return password;
 }
-
-return;
-
-// // Event listener for the generate button
-// // document.getElementById("generate-button").addEventListener("click", function() {
-//     var criteria = getPasswordCriteria();
-//     var length = getPasswordLength();
   
-// if (validateInput(criteria, length)) {
-//     var password = generatePassword(criteria, length);
-//     // TODO: Display the password in an alert or write it to the page
-// } else {
-//     // TODO: Display an error message or handle invalid input
-// }
-// });
+// Add event listener to the "Generate Password" button. Qs: How does the Eventlistner functionality work... what are different ways to use it?
+document.getElementById('generate').addEventListener('click', function () {
+    // Get the password length and criteria
+    var length = getPasswordLength();
+    var criteria = getPasswordCriteria();  
+
+    // Generate and display the password. Qs: How do I get the generated password to appear in the password box?
+    var password = generatePassword(criteria, length);
+});
