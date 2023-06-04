@@ -9,15 +9,25 @@ function getPasswordLength() {
     return pwLength;
 }
 
-// Function to prompt the user for password criteria
+// Function to prompt the user for password criteria lowercase, uppercase, numeric, and/or special characters)
 function getPasswordCriteria() {
     let pwLowercase = window.confirm('Would you like your password to include lowercase letters?');
+    let pwUppercase = window.confirm('Would you like your password to include uppercase letters?');
+    let pwNumeric = window.confirm('Would you like your password to include numbers?');
+    let pwSpecial = window.confirm('Would you like your password to include special characters? (Valid special characters include: !@#$%^&*())');
 
     console.log("Include lowercase letters: " + pwLowercase);
-    return pwLowercase
+    console.log("Include uppercase letters: " + pwUppercase);
+    console.log("Include numbers: " + pwNumeric);
+    console.log("Include special characters: " + pwSpecial);
+    
+    return {
+        pwLowercase,
+        pwUppercase,
+        pwNumeric,
+        pwSpecial
+    };
 }
-  
-// lowercase, uppercase, numeric, and/or special characters
 
 getPasswordLength()
 getPasswordCriteria()
@@ -28,11 +38,40 @@ function validateInput(criteria, length) {
     // TODO: Return true if the input is valid, otherwise false
 }
 
-// // Function to generate the password
-// function generatePassword() {
-//     // TODO: Add code to generate the password based on the selected criteria
-//     // TODO: Return the generated password
-// }
+// Function to generate the password
+function generatePassword(criteria, length) {
+    let characters = '';
+
+    if (criteria.pwLowercase) {
+        characters += 'abcdefghijklmnopqrstuvwxyz'
+    }
+
+    if (criteria.pwUppercase) {
+        characters += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    }
+
+    if (criteria.pwNumeric) {
+        characters += '0123456789'
+    }
+
+    if (criteria.pwSpecial) {
+        characters = '!@#$%^&*()'
+    }
+
+    length == getPasswordLength()
+
+    // TODO: Return the generated password
+    let password = ''
+    i=0
+    for (let i=0; i<length; i++) {
+        password += characters.charAt(math.floor(math.random * characters.length));
+    }
+
+    console.log(password);
+    return password;
+}
+
+return;
 
 // // Event listener for the generate button
 // // document.getElementById("generate-button").addEventListener("click", function() {
