@@ -1,4 +1,4 @@
-// Function to prompt the user for the password length. Q: Why is parseInt between 2 and 36?
+// Function to prompt the user for the password length. Use parseInt to change the window prompt response from a string to an integer. Q: Why is parseInt between 2 and 36?
 function getPasswordLength() {
     let pwLength = parseInt(window.prompt('Choose the length of your desired password. It must be between 8 and 128 characters'));
   
@@ -12,15 +12,31 @@ function getPasswordLength() {
   
 // Function to prompt the user for password criteria (lowercase, uppercase, numeric, and/or special characters)
 function getPasswordCriteria() {
-    let pwLowercase = window.confirm('Would you like your password to include lowercase letters?');
-        console.log('Include lowercase letters: ' + pwLowercase);
-    let pwUppercase = window.confirm('Would you like your password to include uppercase letters?');
-        console.log('Include uppercase letters: ' + pwUppercase);
-    let pwNumeric = window.confirm('Would you like your password to include numbers?');
-        console.log('Include numbers: ' + pwNumeric);
-    let pwSpecial = window.confirm('Would you like your password to include special characters? (Valid special characters include: !@#$%^&*()');
-        console.log('Include special characters: ' + pwSpecial);
 
+    do {
+        pwLowercase = window.confirm('Would you like your password to include lowercase letters?');
+        pwUppercase = window.confirm('Would you like your password to include uppercase letters?');
+        pwNumeric = window.confirm('Would you like your password to include numbers?');
+        pwSpecial = window.confirm('Would you like your password to include special characters? (Valid special characters include: !@#$%^&*())');
+  
+        if (!(pwLowercase || pwUppercase || pwNumeric || pwSpecial)) {
+            const iq = parseInt(window.prompt('Please enter your IQ'));
+
+                if (iq < 90) {
+                    window.alert('Clearly. You must select at least one password criteria. Please try again.');
+                } else if (iq >= 90 && iq<120) {
+                    window.alert('If you are of average intelligence, we are all in trouble. You must select at least one password criteria. Please try again.');
+                } else {
+                    window.alert('Okay, there Elon. Sure. You must select at least one password criteria. Please try again.');
+                }
+        }
+    } while (!(pwLowercase || pwUppercase || pwNumeric || pwSpecial));
+  
+    console.log('Include lowercase letters: ' + pwLowercase);
+    console.log('Include uppercase letters: ' + pwUppercase);
+    console.log('Include numbers: ' + pwNumeric);
+    console.log('Include special characters: ' + pwSpecial);
+  
     return {
       pwLowercase,
       pwUppercase,
@@ -64,6 +80,7 @@ document.getElementById('generate').addEventListener('click', function () {
     var length = getPasswordLength();
     var criteria = getPasswordCriteria();  
 
-    // Generate and display the password. Qs: How do I get the generated password to appear in the password box?
+    // Generate and display the password.
     var password = generatePassword(criteria, length);
+    document.getElementById('password').value = password;
 });
